@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社区热梗 - 粥粥日报</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .delta-bg {
+            background: linear-gradient(rgba(30, 30, 30, 0.85), rgba(30, 30, 30, 0.9)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .military-card {
+            background: rgba(23, 25, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(101, 119, 134, 0.3);
+            border-radius: 8px;
+        }
+        .tactical-border {
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #d69e2e, #b7791f, #744210) 1;
+        }
+        .hud-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .hud-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(214, 158, 46, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        .hud-effect:hover::before {
+            left: 100%;
+        }
+        .meme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .meme-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .meme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .meme-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+        .like-btn {
+            transition: all 0.3s ease;
+        }
+        .like-btn.liked {
+            color: #e53e3e;
+        }
+    </style>
+</head>
+<body class="delta-bg min-h-screen text-gray-200">
+    <!-- 导航栏 -->
+    <nav class="bg-gray-900 bg-opacity-90 border-b border-yellow-600 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-bold text-yellow-400 tracking-wider">粥粥日报</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="index.html" class="hover:text-yellow-300 transition duration-200">情报首页</a>
+                        <a href="tactics.html" class="hover:text-yellow-300 transition duration-200">战术周报</a>
+                        <a href="meme.html" class="text-yellow-400 border-b-2 border-yellow-400 pb-1">社区热梗</a>
+                        <a href="profile.html" class="hover:text-yellow-300 transition duration-200">个人中心</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg text-white font-medium transition duration-200">登录/注册</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- 页面标题 -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">三角洲行动热梗社区</h1>
+            <p class="text-gray-300">玩家创意无限，欢乐无处不在</p>
+        </div>
+
+        <!-- 热门标签 -->
+        <div class="flex flex-wrap gap-3 mb-8 justify-center">
+            <button class="px-4 py-2 bg-yellow-600 text-white rounded-full hover:bg-yellow-700 transition duration-200">全部</button>
+            <button class="px-4 py-2 bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 transition duration-200">牛头人梗</button>
+            <button class="px-4 py-2 bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 transition duration-200">哈夫克天空</button>
+            <button class="px-4 py-2 bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 transition duration-200">战术翻滚</button>
+            <button class="px-4 py-2 bg-gray-700 text-gray-300 rounded-full hover:bg-gray-600 transition duration-200">萌新日常</button>
+        </div>
+
+        <!-- 梗图网格 -->
+        <div class="meme-grid">
+            <!-- 梗图1 -->
+            <div class="military-card meme-card hud-effect">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                     alt="战术翻滚梗图" class="meme-image">
+                <div class="p-4">
+                    <h3 class="font-bold text-white mb-2">当我试图战术翻滚却撞墙时</h3>
+                    <p class="text-gray-400 text-sm mb-3">每个萌新都会经历的尴尬时刻...</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-4 text-sm text-gray-500">
+                            <span>👤 三角洲老兵</span>
+                            <span>📅 2小时前</span>
+                        </div>
+                        <button class="like-btn flex items-center space-x-1 text-gray-400 hover:text-red-400">
+                            <span>❤️</span>
+                            <span>1.2k</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 梗图2 -->
+            <div class="military-card meme-card hud-effect">
+                <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                     alt="哈夫克天空梗图" class="meme-image">
+                <div class="p-4">
+                    <h3 class="font-bold text-white mb-2">"天空属于哈夫克" - 但我的直升机不是</h3>
+                    <p class="text-gray-400 text-sm mb-3">当你刚学会开直升机就遇到大佬...</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-4 text-sm text-gray-500">
+                            <span>👤 空中霸主</span>
+                            <span>📅 5小时前</span>
+                        </div>
+                        <button class="like-btn flex items-center space-x-1 text-gray-400 hover:text-red-400">
+                            <span>❤️</span>
+                            <span>2.4k</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 梗图4 -->
+            <div class="military-card meme-card hud-effect">
+                <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                     alt="萌新日常梗图" class="meme-image">
+                <div class="p-4">
+                    <h3 class="font-bold text-white mb-2">当我第一次玩三角洲行动时的反应</h3>
+                    <p class="text-gray-400 text-sm mb-3">从"我是谁我在哪"到"我又死了"的快速转变</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-4 text-sm text-gray-500">
+                            <span>👤 萌新代表</span>
+                            <span>📅 2天前</span>
+                        </div>
+                        <button class="like-btn flex items-center space-x-1 text-gray-400 hover:text-red-400">
+                            <span>❤️</span>
+                            <span>4.2k</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 热门评论 -->
+        <div class="military-card p-6 mt-8 hud-effect">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                <span class="w-1 h-6 bg-yellow-400 mr-3"></span>
+                神评精选
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">玩</div>
+                            <span class="font-medium text-white">玩家评论道：</span>
+                        </div>
+                        <span class="text-yellow-400 text-sm">👍 256</span>
+                    </div>
+                    <p class="text-gray-300">"这个梗太真实了！昨天我就是这样，翻滚想躲子弹结果直接滚到敌人枪口上😂"</p>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">大</div>
+                            <span class="font-medium text-white">大佬评论道：</span>
+                        </div>
+                        <span class="text-yellow-400 text-sm">👍 189</span>
+                    </div>
+                    <p class="text-gray-300">"天空属于哈夫克，但地面属于会玩的人！多练习直升机操控，你也能成为空中霸主"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 点赞功能
+        document.querySelectorAll('.like-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const isLiked = this.classList.contains('liked');
+                const likeCount = this.querySelector('span:last-child');
+                let count = parseInt(likeCount.textContent);
+                
+                if (isLiked) {
+                    this.classList.remove('liked');
+                    count--;
+                } else {
+                    this.classList.add('liked');
+                    count++;
+                }
+                
+                likeCount.textContent = count.toLocaleString();
+            });
+        });
+
+        // 标签筛选功能
+        document.querySelectorAll('.flex.flex-wrap button').forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有活跃状态
+                document.querySelectorAll('.flex.flex-wrap button').forEach(btn => {
+                    btn.classList.remove('bg-yellow-600', 'text-white');
+                    btn.classList.add('bg-gray-700', 'text-gray-300');
+                });
+                
+                // 设置当前按钮为活跃状态
+                this.classList.remove('bg-gray-700', 'text-gray-300');
+                this.classList.add('bg-yellow-600', 'text-white');
+                
+                // 这里可以添加实际的筛选逻辑
+                alert('筛选功能：' + this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

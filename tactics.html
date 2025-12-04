@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战术周报 - 粥粥日报</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .delta-bg {
+            background: linear-gradient(rgba(30, 30, 30, 0.85), rgba(30, 30, 30, 0.9)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .military-card {
+            background: rgba(23, 25, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(101, 119, 134, 0.3);
+            border-radius: 8px;
+        }
+        .tactical-border {
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #d69e2e, #b7791f, #744210) 1;
+        }
+        .hud-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .hud-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(214, 158, 46, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        .hud-effect:hover::before {
+            left: 100%;
+        }
+        .win-rate-bar {
+            height: 8px;
+            background: #4a5568;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .win-rate-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body class="delta-bg min-h-screen text-gray-200">
+    <!-- 导航栏 -->
+    <nav class="bg-gray-900 bg-opacity-90 border-b border-yellow-600 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-bold text-yellow-400 tracking-wider">粥粥日报</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="index.html" class="hover:text-yellow-300 transition duration-200">情报首页</a>
+                        <a href="tactics.html" class="text-yellow-400 border-b-2 border-yellow-400 pb-1">战术周报</a>
+                        <a href="meme.html" class="hover:text-yellow-300 transition duration-200">社区热梗</a>
+                        <a href="profile.html" class="hover:text-yellow-300 transition duration-200">个人中心</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg text-white font-medium transition duration-200">登录/注册</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- 页面标题 -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">战术数据分析中心</h1>
+            <p class="text-gray-300">基于百万场对局的深度统计分析</p>
+        </div>
+
+        <!-- 数据概览 -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="military-card p-6 text-center hud-effect">
+                <div class="text-3xl font-bold text-yellow-400 mb-2">68.5%</div>
+                <div class="text-gray-400 text-sm">平均胜率</div>
+            </div>
+            <div class="military-card p-6 text-center hud-effect">
+                <div class="text-3xl font-bold text-green-400 mb-2">12.4</div>
+                <div class="text-gray-400 text-sm">平均击杀</div>
+            </div>
+            <div class="military-card p-6 text-center hud-effect">
+                <div class="text-3xl font-bold text-blue-400 mb-2">3.2</div>
+                <div class="text-gray-400 text-sm">K/D比率</div>
+            </div>
+            <div class="military-card p-6 text-center hud-effect">
+                <div class="text-3xl font-bold text-purple-400 mb-2">8.7m</div>
+                <div class="text-gray-400 text-sm">平均移动</div>
+            </div>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- 干员胜率分析 -->
+            <div class="military-card p-6 hud-effect">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-1 h-6 bg-yellow-400 mr-3"></span>
+                    干员胜率排行
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">A</div>
+                            <div>
+                                <div class="font-medium text-white">突击兵</div>
+                                <div class="text-sm text-gray-400">32.5% 使用率</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-yellow-400 font-bold">72.3%</div>
+                            <div class="win-rate-bar w-24 mt-1">
+                                <div class="win-rate-fill bg-green-500" style="width: 72.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">M</div>
+                            <div>
+                                <div class="font-medium text-white">医疗兵</div>
+                                <div class="text-sm text-gray-400">28.7% 使用率</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-yellow-400 font-bold">68.9%</div>
+                            <div class="win-rate-bar w-24 mt-1">
+                                <div class="win-rate-fill bg-green-400" style="width: 68.9%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">S</div>
+                            <div>
+                                <div class="font-medium text-white">支援兵</div>
+                                <div class="text-sm text-gray-400">25.1% 使用率</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-yellow-400 font-bold">65.2%</div>
+                            <div class="win-rate-bar w-24 mt-1">
+                                <div class="win-rate-fill bg-yellow-500" style="width: 65.2%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 地图分析 -->
+            <div class="military-card p-6 hud-effect">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <span class="w-1 h-6 bg-yellow-400 mr-3"></span>
+                    热门地图分析
+                </h2>
+                
+                <div class="map-grid">
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <div class="font-medium text-white mb-2">哈夫克城区</div>
+                        <div class="text-sm text-gray-400 mb-3">巷战之王地图</div>
+                        <div class="flex justify-between text-sm">
+                            <span>胜率: <span class="text-green-400">71.2%</span></span>
+                            <span>时长: <span class="text-yellow-400">12.4m</span></span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <div class="font-medium text-white mb-2">沙漠风暴</div>
+                        <div class="text-sm text-gray-400 mb-3">远程狙击地图</div>
+                        <div class="flex justify-between text-sm">
+                            <span>胜率: <span class="text-green-400">69.8%</span></span>
+                            <span>时长: <span class="text-yellow-400">14.7m</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 武器数据 -->
+        <div class="military-card p-6 mt-8 hud-effect">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                <span class="w-1 h-6 bg-yellow-400 mr-3"></span>
+                武器使用统计
+            </h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-600">
+                            <th class="text-left py-3 text-gray-400">武器名称</th>
+                            <th class="text-left py-3 text-gray-400">使用率</th>
+                            <th class="text-left py-3 text-gray-400">爆头率</th>
+                            <th class="text-left py-3 text-gray-400">平均伤害</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-3 text-white">M4A1 突击步枪</td>
+                            <td class="py-3 text-yellow-400">24.7%</td>
+                            <td class="py-3 text-green-400">18.3%</td>
+                            <td class="py-3 text-red-400">42.5</td>
+                        </tr>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-3 text-white">AK-47 突击步枪</td>
+                            <td class="py-3 text-yellow-400">21.2%</td>
+                            <td class="py-3 text-green-400">16.8%</td>
+                            <td class="py-3 text-red-400">47.2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟数据加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const winRateBars = document.querySelectorAll('.win-rate-fill');
+            winRateBars.forEach(bar => {
+                const currentWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = currentWidth;
+                }, 500);
+            });
+        });
+
+        // 武器数据排序功能
+        function sortWeapons(columnIndex) {
+            const table = document.querySelector('table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                const aValue = parseFloat(a.cells[columnIndex].textContent);
+                const bValue = parseFloat(b.cells[columnIndex].textContent);
+                return bValue - aValue;
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
+</body>
+</html>

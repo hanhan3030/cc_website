@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 粥粥日报</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .delta-bg {
+            background: linear-gradient(rgba(30, 30, 30, 0.85), rgba(30, 30, 30, 0.9)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .military-card {
+            background: rgba(23, 25, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(101, 119, 134, 0.3);
+            border-radius: 8px;
+        }
+        .tactical-border {
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #d69e2e, #b7791f, #744210) 1;
+        }
+        .hud-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .hud-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(214, 158, 46, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        .hud-effect:hover::before {
+            left: 100%;
+        }
+        .progress-bar {
+            height: 8px;
+            background: #4a5568;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+        .badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: relative;
+        }
+        .badge.locked {
+            opacity: 0.3;
+            filter: grayscale(1);
+        }
+        .badge::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #d69e2e, #b7791f, #744210, #d69e2e);
+            z-index: -1;
+        }
+        .stat-card {
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="delta-bg min-h-screen text-gray-200">
+    <!-- 导航栏 -->
+    <nav class="bg-gray-900 bg-opacity-90 border-b border-yellow-600 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-bold text-yellow-400 tracking-wider">粥粥日报</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="index.html" class="hover:text-yellow-300 transition duration-200">情报首页</a>
+                        <a href="tactics.html" class="hover:text-yellow-300 transition duration-200">战术周报</a>
+                        <a href="meme.html" class="hover:text-yellow-300 transition duration-200">社区热梗</a>
+                        <a href="profile.html" class="text-yellow-400 border-b-2 border-yellow-400 pb-1">个人中心</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg text-white font-medium transition duration-200">登录/注册</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- 用户信息头部 -->
+        <div class="military-card p-8 mb-8 hud-effect">
+            <div class="flex items-center space-x-6">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" 
+                         alt="用户头像" class="w-24 h-24 rounded-full border-4 border-yellow-400">
+                    <div class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-2 border-gray-800"></div>
+                </div>
+                <div class="flex-1">
+                    <h1 class="text-3xl font-bold text-white mb-2">三角洲老兵粥粥</h1>
+                    <div class="flex items-center space-x-4 text-gray-300 mb-3">
+                        <span>ID: ZhouZhou_007</span>
+                        <span>等级: 85</span>
+                        <span>军团: 雷霆战队</span>
+                    </div>
+                    <div class="flex space-x-3">
+                        <span class="px-3 py-1 bg-yellow-600 text-white text-sm rounded-full">🎯 精准射手</span>
+                        <span class="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">🌟 社区达人</span>
+                        <span class="px-3 py-1 bg-green-600 text-white text-sm rounded-full">🏆 赛季王者</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据统计 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="military-card p-6 stat-card hud-effect">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-yellow-400 mb-2">128</div>
+                    <div class="text-gray-400">总胜场</div>
+                </div>
+            </div>
+            <div class="military-card p-6 stat-card hud-effect">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-400 mb-2">2.8</div>
+                    <div class="text-gray-400">K/D比率</div>
+                </div>
+            </div>
+            <div class="military-card p-6 stat-card hud-effect">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-400 mb-2">68.5%</div>
+                    <div class="text-gray-400">胜率</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 成就徽章 -->
+        <div class="military-card p-6 mb-8 hud-effect">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                <span class="w-1 h-6 bg-yellow-400 mr-3"></span>
+                成就徽章
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="badge mx-auto mb-2">
+                        <span>🎯</span>
+                    </div>
+                    <div class="text-white font-medium">百步穿杨</div>
+                    <div class="text-gray-400 text-sm">爆头1000次</div>
+                </div>
+
+                <div class="text-center">
+                    <div class="badge mx-auto mb-2">
+                        <span>🤺</span>
+                    </div>
+                    <div class="text-white font-medium">近战大师</div>
+                    <div class="text-gray-400 text-sm">近战击杀500次</div>
+                </div>
+
+                <div class="text-center">
+                    <div class="badge locked mx-auto mb-2">
+                        <span>🚁</span>
+                    </div>
+                    <div class="text-white font-medium">空中霸主</div>
+                    <div class="text-gray-400 text-sm">击落50架直升机</div>
+                </div>
+
+                <div class="text-center">
+                    <div class="badge locked mx-auto mb-2">
+                        <span>🏃</span>
+                    </div>
+                    <div class="text-white font-medium">马拉松选手</div>
+                    <div class="text-gray-400 text-sm">移动100公里</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 最近活动 -->
+        <div class="military-card p-6 hud-effect">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
+                <span class="w-1 h-6 bg-yellow-400 mr-3"></span>
+                最近活动
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white">🎮</div>
+                        <div>
+                            <div class="font-medium text-white">完成"哈夫克突袭"任务</div>
+                            <div class="text-sm text-gray-400">2小时前 · 获得 250 经验</div>
+                        </div>
+                    </div>
+                    <span class="text-yellow-400">+250 XP</span>
+                </div>
+
+                <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white">🏆</div>
+                        <div>
+                            <div class="font-medium text-white">达成"连杀专家"成就</div>
+                            <div class="text-sm text-gray-400">5小时前 · 5连杀记录</div>
+                        </div>
+                    </div>
+                    <span class="text-yellow-400">成就解锁</span>
+                </div>
+
+                
+            </div>
+        </div>
+
+        <!-- 等级进度 -->
+        <div class="military-card p-6 mt-8 hud-effect">
+            <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
+                <span class="w-1 h-6 bg-yellow-400 mr-3"></span>
+                等级进度
+            </h2>
+            
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-white">等级 85</span>
+                <span class="text-yellow-400">2,450 / 5,000 XP</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill bg-yellow-500" style="width: 49%"></div>
+            </div>
+            <div class="text-right text-gray-400 text-sm mt-1">距离下一级还需 2,550 XP</div>
+        </div>
+    </div>
+
+    <script>
+        // 等级进度动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.querySelector('.progress-fill');
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.width = '49%';
+            }, 500);
+        });
+
+        // 徽章点击效果
+        document.querySelectorAll('.badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                if (!this.classList.contains('locked')) {
+                    this.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 300);
+                } else {
+                    alert('该成就尚未解锁，继续努力！');
+                }
+            });
+        });
+
+        // 数据卡片悬停效果
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

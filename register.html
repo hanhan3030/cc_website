@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 粥粥日报</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .military-bg {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(120, 119, 116, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(120, 119, 116, 0.1) 0%, transparent 50%);
+        }
+        .input-military {
+            background: rgba(45, 55, 72, 0.7);
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            color: white;
+        }
+        .input-military:focus {
+            outline: none;
+            border-color: #ecc94b;
+            box-shadow: 0 0 0 2px rgba(236, 201, 75, 0.2);
+        }
+        .btn-tactical {
+            background: linear-gradient(135deg, #d69e2e 0%, #b7791f 100%);
+            border: 1px solid #744210;
+        }
+        .btn-tactical:hover {
+            background: linear-gradient(135deg, #b7791f 0%, #975a16 100%);
+        }
+        .password-strength {
+            height: 4px;
+            background: #4a5568;
+            border-radius: 2px;
+            margin-top: 4px;
+        }
+        .password-strength-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="military-bg min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full">
+        <!-- 报头 -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-yellow-400 mb-2 tracking-wider">粥粥日报</h1>
+            <p class="text-gray-300 text-sm">三角洲行动 · 新兵注册中心</p>
+        </div>
+
+        <!-- 注册卡片 -->
+        <div class="bg-gray-800 bg-opacity-90 rounded-lg shadow-2xl border-2 border-yellow-600 p-8">
+            <h2 class="text-2xl font-bold text-white mb-6 text-center">新兵身份注册</h2>
+            
+            <form id="registerForm">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-gray-300 text-sm font-medium mb-2" for="email">
+                            战术通讯邮箱
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="input-military w-full px-4 py-3"
+                            placeholder="请输入有效邮箱地址"
+                            required
+                        >
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-300 text-sm font-medium mb-2" for="newUsername">
+                            设定作战代号
+                        </label>
+                        <input 
+                            type="text" 
+                            id="newUsername" 
+                            class="input-military w-full px-4 py-3"
+                            placeholder="2-16个字符，支持字母数字"
+                            required
+                        >
+                        <p class="text-gray-400 text-xs mt-1">此代号将在战术系统中显示</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 text-sm font-medium mb-2" for="newPassword">
+                            设定安全密码
+                        </label>
+                        <input 
+                            type="password" 
+                            id="newPassword" 
+                            class="input-military w-full px-4 py-3"
+                            placeholder="至少8位，包含字母和数字"
+                            required
+                        >
+                        <div class="password-strength">
+                            <div id="passwordStrength" class="password-strength-fill" style="width: 0%; background: #e53e3e;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 text-sm font-medium mb-2" for="confirmPassword">
+                            确认安全密码
+                        </label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            class="input-military w-full px-4 py-3"
+                            placeholder="再次输入密码"
+                            required
+                        >
+                        <p id="passwordMatch" class="text-xs mt-1 hidden"></p>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="agreeTerms" class="rounded bg-gray-700 border-gray-600 text-yellow-500" required>
+                        <label for="agreeTerms" class="ml-2 text-gray-300 text-sm">
+                            我已阅读并同意 <a href="#" class="text-yellow-400 hover:text-yellow-300">战术服务协议</a> 和 <a href="#" class="text-yellow-400 hover:text-yellow-300">隐私政策</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-tactical w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200">
+                        完成身份注册
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-gray-400 text-sm">
+                    已有作战身份？ 
+                    <a href="login.html" class="text-yellow-400 font-medium hover:text-yellow-300 transition duration-200">
+                        立即登录指挥中心
+                    </a>
+                </p>
+            </div>
+
+            <!-- 分割线 -->
+            <div class="relative mt-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-600"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-gray-800 text-gray-400">其他注册方式</span>
+                </div>
+            </div>
+
+            <!-- 第三方注册 -->
+            <div class="mt-4 grid grid-cols-2 gap-3">
+                <button class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg flex items-center justify-center transition duration-200">
+                    <span class="text-sm">Steam账户</span>
+                </button>
+                <button class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg flex items-center justify-center transition duration-200">
+                    <span class="text-sm">微信账户</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 返回首页 -->
+        <div class="text-center mt-6">
+            <a href="index.html" class="text-gray-400 hover:text-gray-300 text-sm transition duration-200">
+                ← 返回情报首页
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 密码强度检测
+        document.getElementById('newPassword').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('passwordStrength');
+            let strength = 0;
+            
+            if (password.length >= 8) strength += 25;
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 50) {
+                strengthBar.style.background = '#e53e3e';
+            } else if (strength < 75) {
+                strengthBar.style.background = '#ed8936';
+            } else {
+                strengthBar.style.background = '#38a169';
+            }
+        });
+
+        // 密码确认检查
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('newPassword').value;
+            const confirm = this.value;
+            const matchText = document.getElementById('passwordMatch');
+            
+            matchText.classList.remove('hidden');
+            
+            if (confirm === '') {
+                matchText.textContent = '';
+                matchText.className = 'text-xs mt-1 hidden';
+            } else if (password === confirm) {
+                matchText.textContent = '✓ 密码匹配';
+                matchText.className = 'text-xs mt-1 text-green-400';
+            } else {
+                matchText.textContent = '✗ 密码不匹配';
+                matchText.className = 'text-xs mt-1 text-red-400';
+            }
+        });
+
+        // 注册表单提交
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('newUsername').value;
+            const password = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('密码不匹配，请重新确认！');
+                return;
+            }
+            
+            if (!document.getElementById('agreeTerms').checked) {
+                alert('请同意战术服务协议和隐私政策');
+                return;
+            }
+            
+            // 模拟注册成功
+            alert('身份注册成功！欢迎加入三角洲行动，' + username + '！');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
